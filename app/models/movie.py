@@ -7,6 +7,6 @@ class Movie:
         self.id =id
         self.title = title
         self.overview = overview
-        self.image =image
+        self.image = "https://image.tmdb.org/t/p/w500/" + image
         self.vote_average = vote_average
         self.vote_count = vote_count
