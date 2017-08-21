@@ -13,8 +13,6 @@ class ProdConfig(Config):
     Args:
         Config: The parent configuration class with General configuration settings
     '''
-    MOVIE_API_KEY = '6b2931ce73d6552995776353db108a22'
-
 
 
 class DevConfig(Config):
