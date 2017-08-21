@@ -1,1 +1,23 @@
 {% extends 'base.html'%}
+
+<!-- Content block -->
+{% block content %}
+<div class="container">
+
+    <!-- Poster background -->
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="background: url({{movie.poster}})">
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 movie-details">
+            <h3>{{ movie.title }}</h3>
+
+            <p> {{ movie.overview }}</p>
+            <p> <b> {{ movie.vote_average }}</b> - <i>{{ movie.vote_count}} votes </i> </p>
+
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}
