@@ -1,0 +1,31 @@
+.posterPath
+{
+    padding-bottom: 40%;
+    padding-top: 30%;
+    background-size: cover;
+}
+.movie-details
+{
+    margin-top: 20%;
+}
+.movie-details h3
+{
+    text-align: center;
+    font-size: 35px;
+    font-family: sans-serif;
+    font-weight: bolder;
+}
+p
+{
+    font-size: 23px;
+}
+.overview
+{
+    text-align: right;
+}
+.ratings
+{
+    text-align: right;
+    color: green;
+
+}
