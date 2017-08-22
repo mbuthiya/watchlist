@@ -1,6 +1,7 @@
 from flask import render_template,request,redirect,url_for
 from app import app
 from .requests import get_movies,get_movie,search_movie
+from .forms import ReviewForm
 
 
 
@@ -50,9 +51,11 @@ def search(movie_name):
     title = f'search results for {movie_name}'
     return render_template('search.html',movies = searched_movies)
 
-@app.route('/movie/review/new/<int:id>')
+@app.route('/movie/review/new/<int:id>', methods = ['GET','POST'])
 def new_review(id):
 
+    form = ReviewForm()
+    
     movie = get_movie(id)
     title = f'{movie.title} review'
     return render_template('new_review.html',title = title)
