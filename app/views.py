@@ -49,3 +49,10 @@ def search(movie_name):
     searched_movies = search_movie(movie_name_format)
     title = f'search results for {movie_name}'
     return render_template('search.html',movies = searched_movies)
+
+@app.route('/movie/<int:id/review/new>')
+def new_review(id):
+
+    movie = get_movie(id)
+    title = f'{movie.title} review'
+    return render_template('new_review.html',title = title)
