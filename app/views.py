@@ -50,7 +50,7 @@ def search(movie_name):
     title = f'search results for {movie_name}'
     return render_template('search.html',movies = searched_movies)
 
-@app.route('/movie/<int:id/review/new>')
+@app.route('/movie/review/new/<int:id>')
 def new_review(id):
 
     movie = get_movie(id)
