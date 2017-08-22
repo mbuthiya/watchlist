@@ -27,5 +27,12 @@ p
 {
     text-align: right;
     color: green;
-
+}
+.review-card h2
+{
+    color: green;
+    text-transform: capitalize;
+    text-align: center;
+    border-bottom: 1px solid green;
+    padding-bottom: 10px;
 }

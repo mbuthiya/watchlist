@@ -26,5 +26,13 @@ class TestReview(unittest.TestCase):
         self.new_review.save_review()
         self.assertTrue(len(Review.all_reviews)>0)
 
+
+    def test_get_review_by_id(self):
+        
+        self.new_review.save_review()
+        got_reviews = Review.get_reviews(12345)
+        self.assertTrue(len(got_reviews) == 1)
+
+
 if __name__ == '__main__':
     unittest.main()
