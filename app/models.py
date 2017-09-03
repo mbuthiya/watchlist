@@ -50,7 +50,8 @@ class User(db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer,primary_key = True)
-    username = db.Column(db.String(255))
+    username = db.Column(db.String(255),index = True)
+    full_name = db.Column(db.String(255))
     role_id = db.Column(db.Integer,db.ForeignKey('roles.id'))
 
 
