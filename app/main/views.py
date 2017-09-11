@@ -4,7 +4,7 @@ from ..requests import get_movies,get_movie,search_movie
 from .forms import ReviewForm,UpdateProfile
 from ..models import Review,User
 from flask_login import login_required
-from .. import db
+from .. import db,photos
 
 
 
@@ -92,6 +92,7 @@ def profile(uname):
 
 
 @main.route('/user/<uname>/update',methods = ['GET','POST'])
+@login_required
 def update_profile(uname):
     user = User.query.filter_by(username = uname).first()
     if user is None:
@@ -100,7 +101,7 @@ def update_profile(uname):
     form = UpdateProfile()
 
     if form.validate_on_submit():
-        
+
         user.bio = form.bio.data
 
         db.session.add(user)
@@ -109,3 +110,15 @@ def update_profile(uname):
         return redirect(url_for('.profile',uname=user.username))
 
     return render_template('profile/update.html',form =form)
+
+
+@main.route('/user/<uname>/updatepic',methods= ['POST'])
+@login_required
+def update_pic(uname):
+    user = User.query.filter_by(username = uname).first()
+    if 'photo' in request.files:
+        filename = photos.save(request.files['photo'])
+        user.profile_pic_path = filename
+        db.session.commit()
+
+        return redirect(url_for('main.profile',uname=uname))
