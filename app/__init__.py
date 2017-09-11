@@ -44,6 +44,11 @@ def create_app(config_name):
     from .requests import configure_request
     configure_request(app)
 
+    #configuring email
+
+    from .email import configure_request
+    configure_request(app)
+
     # configure UploadSet
     configure_uploads(app,photos)
 
