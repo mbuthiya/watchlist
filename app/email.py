@@ -10,7 +10,7 @@ def configure_request(app):
     sender_email = app.config['SENDER_EMAIL']
 
 
-def mail(subject,template,to,**kwargs):
+def mail_message(subject,template,to,**kwargs):
     email = Message(subject_pref+subject,sender=sender_email,recipients=[to]))
     email.body= render_template(template + ".txt",**kwargs)
     email.html = render_template(template + ".html",**kwargs)
