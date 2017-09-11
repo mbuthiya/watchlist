@@ -1,4 +1,4 @@
-from flask import render_template,request,redirect,url_for
+from flask import render_template,request,redirect,url_for,abort
 from . import main
 from ..requests import get_movies,get_movie,search_movie
 from .forms import ReviewForm
@@ -79,12 +79,12 @@ def new_review(id):
     title = f'{movie.title} review'
     return render_template('new_review.html',title = title, review_form=form, movie=movie)
 
-@main.route('/user/<username>')
+@main.route('/user/<uname>')
 @login_required
-def profile(username):
-    user = User.query.filter_by(username = username)
+def profile(uname):
+    user = User.query.filter_by(username = uname).first()
 
     if user is None:
         abort(404)
 
-    return render_template("profile.html",user = user)
+    return render_template("profile/profile.html",user = user)
