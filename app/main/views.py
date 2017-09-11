@@ -1,9 +1,10 @@
 from flask import render_template,request,redirect,url_for,abort
-from . import main,db
+from . import main
 from ..requests import get_movies,get_movie,search_movie
 from .forms import ReviewForm,UpdateProfile
 from ..models import Review,User
 from flask_login import login_required
+from .. import db
 
 
 
@@ -89,6 +90,7 @@ def profile(uname):
 
     return render_template("profile/profile.html", user = user)
 
+
 @main.route('/user/<uname>/update',methods = ['GET','POST'])
 def update_profile(uname):
     user = User.query.filter_by(username = uname).first()
@@ -98,8 +100,6 @@ def update_profile(uname):
     form = UpdateProfile()
 
     if form.validate_on_submit():
-        user.username = form.username.data
-        user.email = form.email.data
         user.bio = form.bio.data
 
         db.session.add(user)
@@ -107,4 +107,4 @@ def update_profile(uname):
 
         return redirect(url_for('.profile',uname=user.username))
 
-    return render_template('profile/update.html')
+    return render_template('profile/update.html',form =form)
