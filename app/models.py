@@ -53,6 +53,13 @@ class Review:
         return response
 
 
+class PhotoProfile(db.Model):
+    __tablename__ = 'profile_photos'
+
+    id = db.Column(db.Integer,primary_key = True)
+    pic_path = db.Column(db.String())
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+
 
 class User(UserMixin,db.Model):
     __tablename__ = 'users'
@@ -65,7 +72,7 @@ class User(UserMixin,db.Model):
     profile_pic_path = db.Column(db.String())
 
     password_hash = db.Column(db.String(255))
-
+    photos = db.relationship('PhotoProfile',backref = 'user',lazy = dynamic)
     @property
     def password(self):
         raise AttributeError('You cannnot read the password attribute')
