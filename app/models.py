@@ -22,34 +22,27 @@ class Movie:
 
 
 
-class Review:
+class Review(db.Model):
 
-    all_reviews = []
 
-    def __init__(self,movie_id,title,imageurl,review):
-        self.movie_id = movie_id
-        self.title = title
-        self.imageurl = imageurl
-        self.review = review
+    id = db.Column(db.Integer,primary_key = True)
+    movie_id = db.Column(db.Integer)
+    title = db.Column(db.String)
+    image_path = db.Column(db.String)
+    review = db.Column(db.String)
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+
 
 
     def save_review(self):
-        Review.all_reviews.append(self)
+        db.session.add(self)
+        db.session.commit()
 
-
-    @classmethod
-    def clear_reviews(cls):
-        Review.all_reviews.clear()
 
     @classmethod
     def get_reviews(cls,id):
 
-        response = []
-
-        for review in cls.all_reviews:
-            if review.movie_id == id:
-                response.append(review)
-
+        response =cls.query.filter_by(movie_id = id).all()
         return response
 
 
