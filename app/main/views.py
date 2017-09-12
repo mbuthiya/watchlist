@@ -77,7 +77,7 @@ def new_review(id):
     return render_template('new_review.html',title = title, review_form=form, movie=movie)
 
 @main.route('/user/<uname>')
-@login_required
+
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
 
