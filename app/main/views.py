@@ -7,10 +7,6 @@ from flask_login import login_required
 from .. import db,photos
 
 
-
-
-
-
 # Views
 @main.route('/')
 def index():
