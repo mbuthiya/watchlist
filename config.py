@@ -24,7 +24,7 @@ class Config:
 
 
 class ProdConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://james:29654387@5432/watchlist'
+    #SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://james:29654387@5432/watchlist'
     pass
 
 
