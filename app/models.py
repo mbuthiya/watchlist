@@ -24,7 +24,7 @@ class Movie:
 
 class Review(db.Model):
 
-
+    __tablename__ = 'reviews'
     id = db.Column(db.Integer,primary_key = True)
     movie_id = db.Column(db.Integer)
     title = db.Column(db.String)
@@ -64,8 +64,10 @@ class User(UserMixin,db.Model):
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
 
+
     password_hash = db.Column(db.String(255))
     photos = db.relationship('PhotoProfile',backref = 'user',lazy = "dynamic")
+    reviews = db.relationship('Review',backref ='user',lazy = "dynamic")
     @property
     def password(self):
         raise AttributeError('You cannnot read the password attribute')
