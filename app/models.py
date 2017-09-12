@@ -68,6 +68,7 @@ class User(UserMixin,db.Model):
     password_hash = db.Column(db.String(255))
     photos = db.relationship('PhotoProfile',backref = 'user',lazy = "dynamic")
     reviews = db.relationship('Review',backref ='user',lazy = "dynamic")
+    
     @property
     def password(self):
         raise AttributeError('You cannnot read the password attribute')

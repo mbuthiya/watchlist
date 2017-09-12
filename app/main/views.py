@@ -72,7 +72,7 @@ def new_review(id):
         title = form.title.data
         review = form.review.data
 
-        new_review = Review(movie.id,title,movie.poster,review)
+        new_review = Review(movie_id=movie.id,title=title,image_path=movie.poster,review=review,user = current_user)
         new_review.save_review()
 
         return redirect(url_for('.movie',id = movie.id ))
