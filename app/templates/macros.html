@@ -19,14 +19,20 @@
 
     {% for review in review_list %}
 
-    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 review-card">
+    <div class="row">
+
+      <div class="col-xs-2 col-sm-2 col-md-4 col-lg-4">
+        <h4>Author</h4>
+        <p>{{review.user.username}}</p>
+      </div>
+      <div class="col-xs-10 col-sm-10 col-md-8 col-lg-8">
         <h2> {{ review.movie_title}} </h2>
-        <p> {{ review.movie_review | truncate(30) }}</p>
+        <p> {{ review.movie_review | truncate(140) }}</p>
 
-
-
+      </div>
 
     </div>
+
     {% endfor %}
 
 {% endmacro %}

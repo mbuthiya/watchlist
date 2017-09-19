@@ -60,6 +60,15 @@ def search(movie_name):
     return render_template('search.html',movies = searched_movies)
 
 
+@main.route('/reviews/<int:id>')
+def movie_reviews(id):
+    movie = get_movie(id)
+
+    reviews = Review.get_reviews(id)
+    title = f'All reviews for {movie.title}'
+    return render_template('movie_reviews.html',title = title,reviews=reviews)
+
+
 @main.route('/movie/review/new/<int:id>', methods = ['GET','POST'])
 @login_required
 def new_review(id):
