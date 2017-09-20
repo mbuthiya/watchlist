@@ -2,6 +2,7 @@ from . import db
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin
 from . import login_manager
+from datetime import datetime
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -27,9 +28,10 @@ class Review(db.Model):
     __tablename__ = 'reviews'
     id = db.Column(db.Integer,primary_key = True)
     movie_id = db.Column(db.Integer)
-    title = db.Column(db.String)
+    movie_title = db.Column(db.String)
     image_path = db.Column(db.String)
-    review = db.Column(db.String)
+    movie_review = db.Column(db.String)
+    posted = db.Column(db.Time,default=datetime.utcnow())
     user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
 
 
@@ -39,11 +41,13 @@ class Review(db.Model):
         db.session.commit()
 
 
+
     @classmethod
     def get_reviews(cls,id):
 
-        response =cls.query.filter_by(movie_id = id).all()
-        return response
+        reviews = Review.query.filter_by(movie_id=id).all()
+        return reviews
+
 
 
 class PhotoProfile(db.Model):
@@ -67,8 +71,8 @@ class User(UserMixin,db.Model):
 
     password_hash = db.Column(db.String(255))
     photos = db.relationship('PhotoProfile',backref = 'user',lazy = "dynamic")
-    reviews = db.relationship('Review',backref ='user',lazy = "dynamic")
-    
+    reviews = db.relationship('Review',backref = 'user',lazy = "dynamic")
+
     @property
     def password(self):
         raise AttributeError('You cannnot read the password attribute')

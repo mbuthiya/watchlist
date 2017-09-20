@@ -31,14 +31,14 @@
 
 
     </div>
-    
+
     <div class="row">
 
         <h1>Reviews</h1>
         <hr>
 
         {% if reviews %}
-            {{macro.displayReviews(reviews)}}
+            <h5>This movie has {{reviews | count}}  <a href="{{url_for('main.movie_reviews',id=movie.id)}}">reviews</a></h5>
 
         {% else%}
             <h3 class="text-center">This movie has no reviews </h3>

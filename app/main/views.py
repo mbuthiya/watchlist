@@ -6,6 +6,8 @@ from ..models import Review,User,PhotoProfile
 from flask_login import login_required,current_user
 from .. import db,photos
 
+import markdown2
+
 
 # Views
 @main.route('/')
@@ -56,6 +58,24 @@ def search(movie_name):
     return render_template('search.html',movies = searched_movies)
 
 
+@main.route('/reviews/<int:id>')
+def movie_reviews(id):
+    movie = get_movie(id)
+
+    reviews = Review.get_reviews(id)
+    title = f'All reviews for {movie.title}'
+    return render_template('movie_reviews.html',title = title,reviews=reviews)
+
+
+@main.route('/review/<int:id>')
+def single_review(id):
+    review=Review.query.get(id)
+    format_review = markdown2.markdown(review.movie_review,extras=["code-friendly", "fenced-code-blocks"])
+    return render_template('review.html',review = review,format_review=format_review)
+
+
+
+
 @main.route('/movie/review/new/<int:id>', methods = ['GET','POST'])
 @login_required
 def new_review(id):
@@ -67,8 +87,9 @@ def new_review(id):
     if form.validate_on_submit():
         title = form.title.data
         review = form.review.data
-        user = current_user._get_current_object()
-        new_review = Review(movie_id=movie.id,title=title,image_path=movie.poster,review=review,user = user)
+
+        new_review = Review(movie_id=movie.id,movie_title=title,image_path=movie.poster,movie_review=review,user=current_user)
+
         new_review.save_review()
 
         return redirect(url_for('.movie',id = movie.id ))
